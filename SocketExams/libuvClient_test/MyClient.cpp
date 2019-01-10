@@ -16,11 +16,21 @@ int MyClient::Start(const char * ip, int port)
 	if (ret == 0)
 	{
 		m_is_running = true;
-		//m_has_new_msg = false;
 		m_pThread = new std::thread(&MyClient::MsgDespatcher, this);
 	}
 
 	return ret;
+}
+
+void MyClient::Stop()
+{
+	if (!m_is_running)
+	{
+		return;
+	}
+
+	m_is_running = false;
+	m_client.Close();
 }
 
 void MyClient::SetClientCallBack(IClientCallBack * callBack)
@@ -133,7 +143,6 @@ void MyClient::OnMsg(const char * msg, int len)
 	memcpy(&buf[0], msg, len);
 	m_receiveMsgLock.Lock();
 	m_receiveMsgVec.push_back(buf);
-	//m_has_new_msg = true;
 	m_receiveMsgLock.UnLock();
 	m_receiveMsgSem.Release();
 }
@@ -143,7 +152,6 @@ void MyClient::OnConnection()
 	string buf("OnConnection");
 	m_receiveMsgLock.Lock();
 	m_receiveMsgVec.push_back(buf);
-	//m_has_new_msg = true;
 	m_receiveMsgLock.UnLock();
 	m_receiveMsgSem.Release();
 }
@@ -171,7 +179,7 @@ void MyClient::MsgDespatcher()
 
 	while (m_is_running)
 	{
-		m_receiveMsgSem.Wait();
+		m_receiveMsgSem.Wait(1);
 		m_receiveMsgLock.Lock();
 		{
 			temp_bufs.swap(m_receiveMsgVec);

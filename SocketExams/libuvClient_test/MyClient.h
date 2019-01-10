@@ -5,6 +5,7 @@
 #include <RJRequestIdHelper.h>
 #include <RJSysUtil.h>
 #include <RJLock.h>
+#include <atomic>
 
 using namespace std;
 
@@ -53,6 +54,7 @@ struct IClient
 {
 	virtual ~IClient() {}
 	virtual int Start(const char* ip, int port) = 0;
+	virtual void Stop() = 0;
 	virtual void SetClientCallBack(IClientCallBack* callBack) = 0;
 	virtual AsyncSendRtn AsyncSend(const char * cmd, const char* msg, int size) = 0;
 	virtual SyncSendRtn SyncSend(const char * cmd, const char* msg, int size, int ms) = 0;
@@ -65,12 +67,13 @@ public:
 	MyClient();
 	~MyClient();
 
-	int Start(const char* ip, int port);
-	void SetClientCallBack(IClientCallBack* callBack);
+	virtual int Start(const char* ip, int port);
+	virtual void Stop();
+	virtual void SetClientCallBack(IClientCallBack* callBack);
 	int SyncCallmethod();
 
-	AsyncSendRtn AsyncSend(const char * cmd, const char* msg, int size);
-	SyncSendRtn SyncSend(const char * cmd, const char* msg, int size, int ms = 1000);
+	virtual AsyncSendRtn AsyncSend(const char * cmd, const char* msg, int size);
+	virtual SyncSendRtn SyncSend(const char * cmd, const char* msg, int size, int ms = 1000);
 
 private:
 	AsyncSendRtn Send(const char * cmd, const char* msg, int size, int reqId = -1);
@@ -98,7 +101,7 @@ private:
 	std::vector<string> m_receiveMsgVec;
 
 	std::thread* m_pThread;
-	bool m_is_running;
+	std::atomic<bool> m_is_running;
 	//bool m_has_new_msg;
 };
 

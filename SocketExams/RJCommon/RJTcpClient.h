@@ -5,6 +5,7 @@
 #include <thread>
 #include "LibUvHelper.h"
 //#include "RJDefs.h"
+#include <atomic>
 
 
 struct msg_param
@@ -25,8 +26,8 @@ private:
 	uv_tcp_t m_uv_client;
 	uv_connect_t m_connect;
 	uv_async_t m_async_handle;
-	bool m_is_connected;
-	bool m_is_closing;
+	std::atomic<bool> m_is_connected;
+	std::atomic<bool> m_is_closing;
 
 	std::mutex m_send_lock;
 	std::queue<uv_buf_t> m_send_buf;
