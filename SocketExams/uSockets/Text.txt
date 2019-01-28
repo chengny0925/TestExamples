@@ -1,0 +1,8 @@
+
+source file from uWebSockets's subproject uSockets
+version:
+	Commit: 62ae53c1e91b9511645e3a9139520569e43b81c3 [62ae53c]
+	Parents: 529046b2f5
+	Author: Alex Hultman <alexhultman@gmail.com>
+	Date: 2019Äê1ÔÂ22ÈÕ 2:07:04
+	Labels: HEAD, ->, master, origin/master, origin/HEAD

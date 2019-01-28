@@ -2,7 +2,8 @@
 
 //static const char *url = "http://www.baidu.com";
 //static const char *url = "127.0.0.1:8000/form_submit/";
-static const char *url = "127.0.0.1:8000/foo/bar?param1=val1&param2=val2";
+//static const char *url = "127.0.0.1:8000/foo/bar?param1=val1&param2=val2";
+static const char *url = "127.0.0.1:3000";
 static int exit_flag = 0;
 
 static void ev_handler(struct mg_connection *c, int ev, void *p) {
