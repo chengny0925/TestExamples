@@ -3,6 +3,7 @@
 #include <websocketpp/server.hpp>
 
 #include <iostream>
+#include "Myserver.h"
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 
@@ -20,7 +21,7 @@ void on_open(connection_hdl hdl) {
 
 // Define a callback to handle incoming messages
 void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
-	std::cout << "on_message called with hdl: " << hdl.lock().get()
+	std::cout << "on_message called with hdl: " << hdl.lock().get() 
 		<< " and message: " << msg->get_payload()
 		<< std::endl;
 
@@ -42,33 +43,49 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
 
 int main() {
 	// Create a server endpoint
-	server echo_server;
+	//server echo_server;
 
-	try {
-		// Set logging settings
-		echo_server.set_access_channels(websocketpp::log::alevel::all);
-		echo_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
+	//try {
+	//	// Set logging settings
+	//	echo_server.set_access_channels(websocketpp::log::alevel::all);
+	//	echo_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
 
-		// Initialize Asio
-		echo_server.init_asio();
+	//	// Initialize Asio
+	//	echo_server.init_asio();
 
-		echo_server.set_open_handler(bind(&on_open, ::_1));
-		// Register our message handler
-		echo_server.set_message_handler(bind(&on_message, &echo_server, ::_1, ::_2));
+	//	echo_server.set_open_handler(bind(&on_open, ::_1));
+	//	// Register our message handler
+	//	echo_server.set_message_handler(bind(&on_message, &echo_server, ::_1, ::_2));
 
-		// Listen on port 9002
-		echo_server.listen(9002);
+	//	// Listen on port 9002
+	//	int port = 9002;
+	//	websocketpp::lib::error_code  ec;
+	//	echo_server.listen(port, ec);
+	//	if (ec)
+	//	{
+	//		std::cout << "error_code=" << ec.value() << " error_msg=" << ec.message() << std::endl;
+	//		std::cout << "fail to listen on port " << port << std::endl;
+	//	}
+	//	else
+	//	{
+	//		std::cout << "listening on port " << port << std::endl;
 
-		// Start the server accept loop
-		echo_server.start_accept();
+	//		// Start the server accept loop
+	//		echo_server.start_accept();
 
-		// Start the ASIO io_service run loop
-		echo_server.run();
-	}
-	catch (websocketpp::exception const & e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (...) {
-		std::cout << "other exception" << std::endl;
-	}
+	//		// Start the ASIO io_service run loop
+	//		echo_server.run();
+	//	}
+
+	//}
+	//catch (websocketpp::exception const & e) {
+	//	std::cout << e.what() << std::endl;
+	//}
+	//catch (...) {
+	//	std::cout << "other exception" << std::endl;
+	//}
+
+	Myserver server;
+	server.Init(9002);
+	server.Start();
 }
