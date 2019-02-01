@@ -35,6 +35,8 @@
 .vs/
 Debug/
 Release/
+Tmp/
+Bin/
 
 # Visual Studio Code cache/options directory
 .vscode/
