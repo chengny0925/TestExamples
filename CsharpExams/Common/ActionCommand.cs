@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FAQuantClient.Data.DataField
+namespace XXXX.Data.DataField
 {
     //
     // 摘要:

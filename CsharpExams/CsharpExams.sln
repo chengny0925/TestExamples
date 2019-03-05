@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "managedwifi_test", "managed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUtil", "LogUtil\LogUtil.csproj", "{3EF65C1B-61B2-444B-8D23-D384049E0303}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "graph_test", "graph_test\graph_test.csproj", "{B359C1B9-C5E8-468E-9A65-D10420F37889}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3EF65C1B-61B2-444B-8D23-D384049E0303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EF65C1B-61B2-444B-8D23-D384049E0303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EF65C1B-61B2-444B-8D23-D384049E0303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B359C1B9-C5E8-468E-9A65-D10420F37889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B359C1B9-C5E8-468E-9A65-D10420F37889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B359C1B9-C5E8-468E-9A65-D10420F37889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B359C1B9-C5E8-468E-9A65-D10420F37889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

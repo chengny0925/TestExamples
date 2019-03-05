@@ -7,7 +7,7 @@ using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FAQuantClient.Data.DataField
+namespace XXXX.Data.DataField
 {
     public class TypeCreator
     {

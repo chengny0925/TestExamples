@@ -1,9 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:local="clr-namespace:OptionOneApp"
-    xmlns:my="clr-namespace:OptionOneApp.Quota"
-    xmlns:commen="clr-namespace:OptionCommon.components.Input;assembly=OptionCommon">
+    xmlns:local="clr-namespace:XXXX"
+>
 
     <SolidColorBrush Color="#13317A"  x:Key="ButtonBackGround"></SolidColorBrush>
     <SolidColorBrush Color="White"  x:Key="ButtonForeGround"></SolidColorBrush>

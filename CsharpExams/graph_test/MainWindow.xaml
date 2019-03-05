@@ -1,0 +1,30 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:graph_test"
+        xmlns:markline="clr-namespace:graph_test.MarkLine"
+        xmlns:markPoint="clr-namespace:graph_test.MarkPoint"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="graph_test.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="画线移动测试" Margin="10,0" VerticalAlignment="Center">
+			<!--<i:Interaction.Behaviors>
+				<ei:MouseDragElementBehavior/>
+			</i:Interaction.Behaviors>-->
+        </TextBlock>
+
+        <Canvas Grid.Row="1" x:Name="graphArea"/>
+        <!--<markline:MarkLine Grid.Row="1" x:Name="markline"/>-->
+        <!--<Line  Grid.Row="1" Name="line" X1="10" X2="220" Y1="15" Y2="105" Stroke="#FFE6E6F5" StrokeThickness="5" Cursor="Hand"/>
+        <Polyline Grid.Row="1" Name="polyline" Stroke="#FF04041D" StrokeThickness="5" Cursor="Arrow"></Polyline>-->
+
+    </Grid>
+</Window>
