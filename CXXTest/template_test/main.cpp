@@ -26,9 +26,9 @@ private:
 };
 
 
+
 int main()
 {
-
 	std::vector<unique_ptr<Test> > v;
 	
 	unique_ptr<Test> t1(new Test(1));
@@ -49,3 +49,4 @@ int main()
 
 	return 0;
 }
+
