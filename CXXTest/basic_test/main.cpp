@@ -882,6 +882,295 @@ void test_42()
 	hash_version(arr, 7);
 }
 
+void test_43()
+{
+	struct LastValidTick
+	{
+		int i;
+		//组播行情的上个有效值
+		alignas(64) char code[8];
+		int lastShare; //最新成交量
+		double lastPx; //最新价
+		double totalValue; //成交金额
+		double totalPos; //持仓量
+		int bidShare; //最新买量
+		int askShare; //最新卖量
+		double bidPx; //最新买价
+		double askPx; //最新卖价
+	};
+	struct Test
+	{
+		int x;
+		//_declspec(align(64)) LastValidTick tick;
+		//__attribute__((aligned(64))) LastValidTick tick;
+
+		LastValidTick tick;
+
+	};
+
+	Test* test = new Test();
+	int x = sizeof(Test);
+	int y = (long)(test) % 64;
+	int z = (long)(&test->tick) % 64;
+
+	cout << "sizeof(LastValidTick):" << sizeof(LastValidTick) << endl;
+	cout << "sizeof(Test):" << x << endl;
+	cout << "y：" << y << endl;
+	cout << "z：" << z << endl;
+
+	delete test;
+}
+#include <regex>
+void test_44()
+{
+	bool b1 = is_arithmetic<int>();
+	bool b2 = is_arithmetic<string>();
+
+	std::regex pat(R"(\w{2}\s*?)");
+	//cout << "pattern:" << pat << endl;
+	int lineno = 0;
+	for (string line; getline(cin, line);)
+	{
+		++lineno;
+		smatch matchs;
+		if (regex_search(line, matchs, pat, regex_constants::match_default))
+		{
+			//for (auto item : matchs)
+			//{
+			//	cout << lineno << ":" << item.str() << endl;
+			//}
+			cout << lineno << ":" << matchs[0] << endl;
+		}
+	}
+
+
+}
+
+#include <limits>
+void test_45()
+{
+	static_assert(numeric_limits<char>::is_signed, "unsigned characters");
+	static_assert(10000 < (std::numeric_limits<int>::max)(), "small ints");
+
+	cout << "size of long " << sizeof(1L) << endl;
+	cout << "size of long long " << sizeof(1LL) << endl;
+	cout << "lagrest float == " << (std::numeric_limits<float>::max)() << endl;
+	cout << "char is signed == " << numeric_limits<char>::is_signed << endl;
+}
+
+bool Find(int target, vector<vector<int> > array) {
+	bool bfind = false;
+	for (auto& vec : array)
+	{
+		if (target < vec[0])
+		{
+			break;
+		}
+
+		if (target > vec[vec.size() - 1])
+		{
+			continue;
+		}
+
+		int len = vec.size();
+		for (int i = 0; i < len; i++)
+		{
+			if (target < vec[i])
+			{
+				break;
+			}
+
+			if (target == vec[i])
+			{
+				bfind = true;
+				break;
+			}
+		}
+	}
+
+	return bfind;
+}
+
+template<typename T>
+void mycopy(T* to, T* from, int count)
+{
+	if (is_pod<T>::value)
+	{
+		memcpy(to, from, count * sizeof(T));
+	}
+	else
+	{
+		for (int i = 0; i != count; i++)
+			to[i] = from[i];
+	}
+}
+
+#define err_printf(...) fprintf(stderr, "error: %s iis %d\n", __VA_ARGS__);
+
+
+void test_46()
+{
+	vector<vector<int> > array{ {1, 2, 3}, { 2,3,4 }, {3,4,5}};
+	bool b = Find(3, array);
+	cout << "find 3 in array " << b << endl;
+
+	struct S1
+	{
+		int a;
+	};
+	struct S2 : S1
+	{
+		int z;
+
+	};
+
+	S1 a1[10] = {};
+	S1 a2[10];
+	S2 b1[5] = {};
+	S2 b2[5];
+
+	mycopy(a2, a1, 10);
+
+	mycopy(b2, b1, 5);
+	err_printf("threr", 101, 432);
+}
+
+void handle_eptr(std::exception_ptr eptr) // passing by value is ok
+{
+	try {
+		if (eptr) {
+			std::rethrow_exception(eptr);
+		}
+	}
+	catch (const std::exception& e) {
+		std::cout << "Caught exception \"" << e.what() << "\"\n";
+	}
+}
+
+void test_47()
+{
+	std::exception_ptr eptr;
+	try {
+		std::string().at(1); // this generates an std::out_of_range
+	}
+	catch (...) {
+		eptr = std::current_exception(); // capture
+	}
+	handle_eptr(eptr);
+} // destructor for std::out_of_range called here, when the eptr is destructed
+
+#include <fstream>
+void test_48()
+{
+	fstream file;
+	file.open("test_48.out", ios::out | ios::app);
+	if (file.is_open())
+	{
+		file << "TradingDay,Flag" << endl;
+		char tradingDay[13];
+		strcpy(tradingDay, "2019-04-22");
+		char flag = 1;
+		struct Tick
+		{
+			double price;
+			char flag;
+		};
+		Tick tick = { 3.141, 5 };
+		Tick* p = &tick;
+		file << tradingDay << "," << (int)p->flag << endl;
+		file.flush();
+		file.close();
+	}
+	
+}
+
+void test_49()
+{
+	//std::cout << "Enter numbers separated by whitespace (use -1 to quit): ";
+	//int i = 0;
+	//while (i != -1) {
+	//	std::cin >> i;        // 不良的形式 — 见如下注释
+	//	std::cout << "You entered " << i << '\n';
+	//}
+
+	//std::cout << "Enter a number, or -1 to quit: ";
+	//int i = 0;
+	//while (std::cin >> i) {    // 良好的形式
+	//	if (i == -1) break;
+	//	std::cout << "You entered " << i << '\n';
+	//}
+
+	char name[1000];
+	int age;
+	for (;;) {
+		std::cout << "Name: ";
+		std::cin >> name;
+		std::cout << "Age: ";
+		std::cin >> age;
+		//重要，忽略age之后的字符（非法附加在age值之后的）
+		std::cin.ignore(INT_MAX, '\n');
+	}
+}
+
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <string>
+#include <limits>
+
+template<typename T> inline std::string stringify(const T& x)
+{
+	std::ostringstream out;
+	out << x;
+	return out.str();
+}
+
+template<> inline std::string stringify<bool>(const bool& x)
+{
+	std::ostringstream out;
+	out << std::boolalpha << x;
+	return out.str();
+}
+
+template<> inline std::string stringify<double>(const double& x)
+{
+	const int sigdigits = std::numeric_limits<double>::digits10;
+	// or perhaps std::numeric_limits<double>::max_digits10 if that is available on your compiler
+	std::ostringstream out;
+	out << std::setprecision(sigdigits) << x;
+	return out.str();
+}
+
+template<> inline std::string stringify<float>(const float& x)
+{
+	const int sigdigits = std::numeric_limits<float>::digits10;
+	// or perhaps std::numeric_limits<float>::max_digits10 if that is available on your compiler
+	std::ostringstream out;
+	out << std::setprecision(sigdigits) << x;
+	return out.str();
+}
+
+template<> inline std::string stringify<long double>(const long double& x)
+{
+	const int sigdigits = std::numeric_limits<long double>::digits10;
+	// or perhaps std::numeric_limits<long_double>::max_digits10 if that is available on your compiler
+	std::ostringstream out;
+	out << std::setprecision(sigdigits) << x;
+	return out.str();
+}
+void test_50()
+{
+	int i = 101;
+	bool b = true;
+	float f = 2.45;
+	double d = 3.14159267431;
+	cout << stringify(i) << endl;
+	cout << stringify(b) << endl;
+	cout << stringify(f) << endl;
+	cout << stringify(d) << endl;
+}
+
+
 int main()
 {
 	//test_1();
@@ -925,7 +1214,15 @@ int main()
 	//test_39();
 	//test_40();
 	//test_41();
-	test_42();
+	//test_42();
+	//test_43();
+	//test_44();
+	//test_45();
+	//test_46();
+	//test_47();
+	//test_48();
+	//test_49();
+	test_50();
 
 	return 0;
 }
